@@ -1,0 +1,49 @@
+version: '2'
+
+services:
+  nginx:
+    image: nginx
+    restart: always
+    depends_on:
+      - php
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/config:/etc/nginx/conf.d
+      - ./nginx/static_dir:/var/www/html
+    links:
+      - php
+  php:
+    container_name: php
+    build: php
+#    command: sleep 8888888
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./php/project:/var/www/html
+      - ./php/config/:/usr/local/etc/php-fpm.d/
+  redis:
+    image: redis:5
+    ports:
+      - "6379"
+    volumes:
+      - ./redis/data:/data
+  
+  mongo:
+    image: mongo:4
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongo/db:/data/db
+      - ./mongo/configdb:/data/configdb
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: dbname
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pwd
