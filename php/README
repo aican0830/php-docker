@@ -1,0 +1,5 @@
+自行下载PHP扩展源文件到当前目录
+参考地址：https://github.com/Mehrdad-Dadkhah/php7/blob/master/Dockerfile
+
+1. mongodb: https://pecl.php.net/get/mongodb-1.5.1.tgz
+2. imagick: https://pecl.php.net/get/imagick-3.4.3.tgz
