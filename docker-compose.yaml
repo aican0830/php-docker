@@ -8,19 +8,21 @@ services:
       - php
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - ./nginx/config:/etc/nginx/conf.d
-      - ./nginx/static_dir:/var/www/html
+      - ./nginx/static_dir:/usr/share/nginx/html
+      - ./nginx/ssl:/etc/nginx/ssl
     links:
       - php
   php:
     container_name: php
     build: php
-#    command: sleep 8888888
+    restart: always
     ports:
       - "9000:9000"
     volumes:
-      - ./php/project:/var/www/html
+      - ./php/project/:/var/www/html
       - ./php/config/:/usr/local/etc/php-fpm.d/
   redis:
     image: redis:5
@@ -36,6 +38,10 @@ services:
     volumes:
       - ./mongo/db:/data/db
       - ./mongo/configdb:/data/configdb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: test2
   mysql:
     image: mysql:5.7
     volumes:

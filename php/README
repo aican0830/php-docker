@@ -3,3 +3,4 @@
 
 1. mongodb: https://pecl.php.net/get/mongodb-1.5.1.tgz
 2. imagick: https://pecl.php.net/get/imagick-3.4.3.tgz
+3. apcu: https://pecl.php.net/get/apcu-5.1.12.tgz
