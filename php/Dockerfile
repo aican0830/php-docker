@@ -65,4 +65,4 @@ RUN pecl install -f mongodb-1.5.1.tgz \
 
 
 RUN docker-php-ext-install opcache 
-RUN docker-php-ext-install bcmath
+RUN docker-php-ext-install bcmath mysqli
