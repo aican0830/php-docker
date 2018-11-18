@@ -20,6 +20,9 @@ RUN apt-get install -y \
     && docker-php-ext-install zip \
     && docker-php-ext-install pdo_mysql \
     && docker-php-ext-install soap \
+    && docker-php-ext-install opcache \
+    && docker-php-ext-install bcmath \
+    && docker-php-ext-install mysqli \
     && apt-get purge --auto-remove -y g++ \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
@@ -53,16 +56,10 @@ RUN apt-get update && apt-get install -y \
 RUN pecl install -f apcu-5.1.12.tgz && docker-php-ext-enable apcu
 
 #install Imagemagick & PHP Imagick ext
-RUN apt-get update && apt-get install -y \
-       libmagickwand-dev --no-install-recommends
+RUN apt-get update && apt-get install -y libmagickwand-dev --no-install-recommends
 
 RUN pecl install -f imagick-3.4.3.tgz && docker-php-ext-enable imagick
 
 # install mongodb ext
 #RUN curl -L -o /tmp/mongodb-1.5.1.tar.gz https://github.com/mongodb/mongo-php-driver/releases/download/1.5.1/mongodb-1.5.1.tgz \
-RUN pecl install -f mongodb-1.5.1.tgz \
-    && docker-php-ext-enable mongodb
-
-
-RUN docker-php-ext-install opcache 
-RUN docker-php-ext-install bcmath mysqli
+RUN pecl install -f mongodb-1.5.1.tgz && docker-php-ext-enable mongodb
