@@ -1,8 +1,9 @@
-FROM php:7.1-fpm
+FROM php:7.1-fpm-stretch
 COPY sources.list ./sources.list
 COPY imagick-3.4.3.tgz ./imagick-3.4.3.tgz
 COPY mongodb-1.5.1.tgz ./mongodb-1.5.1.tgz
 COPY apcu-5.1.12.tgz ./apcu-5.1.12.tgz
+COPY xdebug-2.6.1.tgz ./xdebug-2.6.1.tgz
 
 RUN mv /etc/apt/sources.list /etc/apt/sources.list.backup.1 && mv sources.list /etc/apt/ && apt-get update -y 
 
@@ -63,4 +64,5 @@ RUN pecl install -f imagick-3.4.3.tgz && docker-php-ext-enable imagick
 RUN pecl install -f mongodb-1.5.1.tgz \
     && docker-php-ext-enable mongodb
 
-RUN docker-php-ext-install opcache 
+RUN docker-php-ext-install opcache bcmath mysqli
+RUN pecl install -f xdebug-2.6.1.tgz && docker-php-ext-enable xdebug
